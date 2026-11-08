@@ -23,7 +23,7 @@ The implementation will use a single Next.js App Router application with TypeScr
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 - **User Value First**: Pass. The product directly solves discoverability and trust gaps for clients and developers, with a defined initial release scope.
 - **Evidence-Driven Delivery**: Pass. The specification includes measurable success criteria, edge cases, access rules, and failure states.
@@ -90,24 +90,28 @@ apps/web/
 ## Planned Phases
 
 ### Phase 0 — Foundation and platform security
+
 - Initialize the Next.js + TypeScript app, Prisma schema, PostgreSQL connection, and environment configuration.
 - Implement Auth.js session handling with explicit role assignment for Client and Developer accounts.
 - Establish server-side guard rails: middleware for route protection, role checks, and shared utilities for authorization and validation.
 - Add the admin provisioning model: administrators are created only by trusted internal provisioning, with audit logging and no self-service role escalation.
 
 ### Phase 1 — Public discovery and developer profile experience
+
 - Build the public developer directory with search, filtering, and empty-state handling for no results.
 - Implement editable developer profile forms that separate public profile data from private account metadata.
 - Expose public profile pages that allow unauthenticated browsing while preventing access to private account information.
 - Add validation and failure handling for database read errors, malformed profile payloads, and permission boundaries.
 
 ### Phase 2 — Inquiry workflow and lifecycle enforcement
+
 - Implement inquiry creation, validation, and assignment to a target developer.
 - Enforce inquiry business rules: required fields, developer eligibility checks, client ownership boundaries, and rejects for invalid submissions.
 - Model inquiry states as persisted records with auditable transitions such as Submitted, Accepted, Declined, and archived or closed terminal states as appropriate.
 - Restrict updates to the owning client and authorized developer, with all state transitions validated server-side and previous state preserved on invalid operations.
 
 ### Phase 3 — Dashboard, moderation, and operational readiness
+
 - Build client and developer dashboard views for inquiry tracking, status visibility, and account management.
 - Add minimal administrator workflows for account review, abnormal behavior investigation, and moderation actions restricted to approved administrative access.
 - Validate database write/read failure paths and ensure safe error responses without leaking internal information.
@@ -148,5 +152,5 @@ This plan is intentionally aligned to the draft specification and is ready for s
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| None | N/A | N/A |
+| --------- | ---------- | ------------------------------------ |
+| None      | N/A        | N/A                                  |

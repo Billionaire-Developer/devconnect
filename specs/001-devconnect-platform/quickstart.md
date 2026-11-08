@@ -30,24 +30,28 @@ The DevConnect first release enables developer discovery, authenticated client i
 ## Core User Workflows
 
 ### Discover a developer
+
 - Open the directory page.
 - Filter by skill, experience, and availability.
 - Review public profile information.
 - Decide whether to submit an inquiry.
 
 ### Submit an inquiry
+
 - Sign in as a Client.
 - Select a target developer and complete the inquiry form.
 - Verify required fields and submit.
 - View the inquiry in the client dashboard.
 
 ### Respond to an inquiry
+
 - Sign in as a Developer.
 - Open the dashboard or inquiry inbox.
 - Review incoming inquiries.
 - Accept, decline, or mark the inquiry as completed according to the business rules.
 
 ### Handle misuse
+
 - Sign in with an authorized administrator account.
 - Review reports or suspicious activity.
 - Restrict or suspend accounts or relevant inquiry records when required.
@@ -63,6 +67,7 @@ The DevConnect first release enables developer discovery, authenticated client i
 ## Success Validation
 
 The implementation is considered ready when:
+
 - clients can discover developers and submit inquiries in a controlled flow;
 - developers can accept or decline only relevant inquiries;
 - role-based access checks block unauthorized actions;

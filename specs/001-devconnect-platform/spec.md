@@ -9,6 +9,7 @@
 DevConnect is a responsive web platform for connecting independent software developers with individuals and small businesses that need software development and technical services. The initial release focuses on trust, discoverability, and structured inquiry management without introducing marketplace mechanics such as payments, escrow, or bidding.
 
 The platform helps:
+
 - clients find developers with relevant skills and experience;
 - developers showcase their expertise and availability to the right audience;
 - users initiate structured project requests through a controlled inquiry workflow;
@@ -17,27 +18,33 @@ The platform helps:
 ## 2. Target Users and Personas
 
 ### 2.1 Developer
+
 A developer is a self-employed professional or small technical contractor who wants to present a clear profile, share their expertise, and receive relevant project inquiries.
 
 Needs:
+
 - a clear professional profile;
 - visibility in a searchable directory;
 - a safe and organized inbox for incoming inquiries;
 - a way to accept or decline relevant work.
 
 ### 2.2 Client
+
 A client is a person or small business seeking technical help for software or digital projects.
 
 Needs:
+
 - a simple way to discover suitable developers;
 - a structured, low-friction way to request work;
 - visibility into the status of submitted inquiries;
 - confidence that only the appropriate developer receives their inquiry.
 
 ### 2.3 Administrator
+
 An administrator is a vetted platform operator who can manage user accounts, review reported issues, and take action against misuse when needed.
 
 Needs:
+
 - account-level controls for suspicious or harmful activity;
 - appreciation that administrator access is limited and controlled;
 - a minimal but necessary moderation capability in the first release.
@@ -45,6 +52,7 @@ Needs:
 ## 3. Product Scope and Constraints
 
 ### In Scope
+
 - user registration with Developer or Client roles;
 - developer profile creation and editing;
 - public developer directory with search and filtering;
@@ -54,6 +62,7 @@ Needs:
 - basic administrator moderation for safety and misuse handling where required.
 
 ### Out of Scope
+
 - payments or invoicing;
 - escrow or milestone funding;
 - bidding systems or reverse auctions;
@@ -64,11 +73,14 @@ Needs:
 ## 4. Role-Based Access Control
 
 ### 4.1 Roles
+
 A user account MUST belong to exactly one of the following primary roles:
+
 - Client
 - Developer
 
 Administrative privileges MUST NOT be assigned through self-service role changes or account signup. Administrative access MUST be granted only through a secure administrative process, such as:
+
 - a trusted onboarding flow managed by a platform administrator;
 - direct system provisioning by a verified internal operator;
 - environment-controlled provisioning that requires elevated, authenticated access and audit logging.
@@ -76,6 +88,7 @@ Administrative privileges MUST NOT be assigned through self-service role changes
 Administrative permissions MUST be limited to the privileges explicitly required for moderation and account governance. They MUST NOT be automatically granted to all developers or clients.
 
 ### 4.2 Access Rules
+
 - Public developer profile pages are visible to unauthenticated visitors.
 - Private account data MUST remain visible only to the user themselves and to authorized administrators when required for safety or abuse handling.
 - A Client may access only their own inquiry records and account settings.
@@ -91,6 +104,7 @@ Administrative permissions MUST be limited to the privileges explicitly required
 **User story**: As a client, I want to browse a searchable directory of developers so that I can find someone with the technical skills and experience needed for my project.
 
 **Acceptance Criteria**:
+
 1. Given a client opens the directory, when they view the page, then they see a list of public developer profiles and can search by skill, experience, and availability.
 2. Given a client applies filters with no matches, when the search runs, then the system shows a clear empty-state message and does not crash.
 3. Given a client views a developer profile, when the profile is public, then the system displays the developer’s name, title, bio, skills, experience, availability, portfolio links, and profile image.
@@ -104,6 +118,7 @@ Administrative permissions MUST be limited to the privileges explicitly required
 **User story**: As a client, I want to submit a structured inquiry to a developer so that I can request work without confusion or ambiguity.
 
 **Acceptance Criteria**:
+
 1. Given a signed-in client submits a valid inquiry, when the request is processed, then the inquiry is saved with a project title, description, required skills, optional budget, optional timeline, and target developer.
 2. Given a client submits an inquiry with missing required information, when validation runs, then the inquiry is rejected with a clear error and no record is created.
 3. Given a client tries to create an inquiry for a developer who is not available or not eligible, when the request is submitted, then the system rejects the request with a clear explanation.
@@ -118,6 +133,7 @@ Administrative permissions MUST be limited to the privileges explicitly required
 **User story**: As a developer, I want to receive and respond to project inquiries directed to me so that I can decide whether to pursue the opportunity.
 
 **Acceptance Criteria**:
+
 1. Given a developer is signed in, when they open their dashboard or inquiry inbox, then they can view only inquiries addressed to them.
 2. Given a developer receives an inquiry, when they decide to accept it, then the inquiry status changes to Accepted and the client can view the updated status.
 3. Given a developer receives an inquiry, when they decide to decline it, then the inquiry status changes to Declined and no further work is initiated.
@@ -132,6 +148,7 @@ Administrative permissions MUST be limited to the privileges explicitly required
 **User story**: As a developer or client, I want to maintain my profile and account information so that my public presence, contact details, and dashboard reflect my current status.
 
 **Acceptance Criteria**:
+
 1. Given a signed-in developer updates their profile, when they save changes, then the updated public profile is shown to clients and the dashboard reflects the current profile state.
 2. Given a user enters invalid profile data, when the form is submitted, then the system rejects the invalid fields and preserves a valid user record.
 3. Given a user tries to edit another user’s account or profile, when access control checks run, then the edit is denied.
@@ -144,6 +161,7 @@ Administrative permissions MUST be limited to the privileges explicitly required
 **User story**: As an administrator, I want to review misuse or suspicious activity so that the platform remains safe and professional while preserving the intended product scope.
 
 **Acceptance Criteria**:
+
 1. Given a platform report is submitted, when an administrator reviews it, then they can inspect the relevant account or inquiry details within the authorized moderation workflow.
 2. Given an administrator identifies misuse, when they apply a moderation action, then the account or behavior is restricted according to policy without deleting the underlying records unless required by law or policy.
 3. Given a non-admin user attempts to access moderation tools, when the role check runs, then access is denied.
@@ -153,6 +171,7 @@ Administrative permissions MUST be limited to the privileges explicitly required
 ## 6. Inquiry Permissions and Lifecycle Rules
 
 ### 6.1 Permission Rules
+
 - Clients may create inquiries only as the sending party and only for a valid developer target.
 - Clients may view inquiries they submitted.
 - Developers may view inquiries addressed to them.
@@ -164,7 +183,9 @@ Administrative permissions MUST be limited to the privileges explicitly required
 - Archiving MUST retain the inquiry record for history and audit purposes and MUST NOT permanently delete it from the database.
 
 ### 6.2 Status Rules
+
 The core inquiry lifecycle is:
+
 - Draft or Pending Submission
 - Pending
 - Accepted
@@ -173,6 +194,7 @@ The core inquiry lifecycle is:
 - Archived
 
 Business rules:
+
 - A Client may create a new inquiry or edit an inquiry only while it is still active and not locked by platform policy.
 - A Developer may transition a pending inquiry to Accepted, Declined, or Completed.
 - A Client may only view their own inquiry and the status that has been assigned by the developer or platform.
@@ -180,7 +202,9 @@ Business rules:
 - Archival is a status change, not a destructive deletion. Archived records remain available for audit, historical review, and post-incident recovery.
 
 ### 6.3 Explicit Authorization Override Rule
+
 A completed inquiry may only be reopened or modified under one of the following defined authorization paths:
+
 - an administrator assigns a corrective override after a review of the dispute or data quality issue; or
 - a product policy change formally defines a reopen rule for a specific workflow.
 
@@ -189,7 +213,9 @@ Without such an explicit rule, a completed inquiry remains locked.
 ## 7. Privacy and Public Information Rules
 
 ### 7.1 Public Developer Profile Data
+
 The following information MAY be displayed publicly on a developer profile:
+
 - full name or display name;
 - professional title;
 - biography;
@@ -203,7 +229,9 @@ The following information MAY be displayed publicly on a developer profile:
 Public profile data MUST be intentionally selected and may be limited to what is appropriate for professional discovery.
 
 ### 7.2 Private Account Information
+
 The following information MUST remain private and MUST NOT be exposed in public search results or public developer profile pages:
+
 - account email address;
 - authentication and account secret data;
 - private dashboard data;
@@ -218,14 +246,16 @@ The system MUST enforce separation between public profile data and account-level
 Administrator responsibilities are limited to the minimum necessary for safe operation in the initial release.
 
 ### Included in Initial Scope
+
 - reviewing reports or suspicious activity;
 - investigating accounts involved in misuse or abuse;
 - restricting or suspending accounts when necessary;
 - reviewing or approving inquiry restrictions when required;
-- preserving inquiry and account records for audit; 
+- preserving inquiry and account records for audit;
 - applying explicit corrective actions when a record needs a formal override.
 
 ### Explicitly Excluded from Initial Scope
+
 - marketplace payment operations;
 - dispute resolution for financial transactions;
 - onboarding or verification of external agencies;
@@ -248,6 +278,7 @@ Administrative capabilities MUST remain intentionally narrow to keep the first r
 ## 10. Data Requirements and Relationships
 
 ### Entities
+
 - User Account
 - Developer Profile
 - Client Profile
@@ -257,6 +288,7 @@ Administrative capabilities MUST remain intentionally narrow to keep the first r
 - Account Report or Moderation Event
 
 ### Relationships
+
 - Each User Account has one primary role: Developer or Client.
 - A Developer may have one public Developer Profile.
 - A Client may create many inquiries.
@@ -268,9 +300,11 @@ Administrative capabilities MUST remain intentionally narrow to keep the first r
 ## 11. API Behavior and Security Requirements
 
 ### API Scope
+
 The platform MUST expose inquiry and profile operations through secure server-side handlers that validate identity and role before any read or write operation.
 
 ### Security Rules
+
 - All protected endpoints MUST require user authentication.
 - All inquiry operations MUST verify that the actor owns the inquiry or is the targeted recipient where permitted by policy.
 - All status transitions MUST enforce the defined business rules for inquiry lifecycle progression.
@@ -293,12 +327,14 @@ The platform MUST expose inquiry and profile operations through secure server-si
 ## 13. Assumptions, Dependencies, and Constraints
 
 ### Assumptions
+
 - The initial release will focus on trust and structured inquiry flow instead of marketplace economics.
 - A secure authentication mechanism exists or can be configured for the app.
 - Administrative access is intentionally rare and tightly controlled.
 - The platform will rely on a database layer for persisted inquiry and profile records.
 
 ### Dependencies
+
 - Auth and session handling
 - Database schema for users, profiles, inquiries, moderation events, and audit logs
 - Server-side validation and authorization middleware
@@ -306,6 +342,7 @@ The platform MUST expose inquiry and profile operations through secure server-si
 - Error handling for database failures and authorization denial
 
 ### Constraints
+
 - No payment, escrow, bidding, or marketplace transaction processing in the initial release.
 - Administrator scope is intentionally narrow and limited to what is necessary for safety.
 - Inquiry lifecycle rules must be clear enough to support testability and auditability.
@@ -313,6 +350,7 @@ The platform MUST expose inquiry and profile operations through secure server-si
 ## 14. Prioritized Requirements
 
 ### P0 - Critical
+
 - secure role-based registration and authorization;
 - developer profile creation and public directory visibility;
 - inquiry creation, viewing, and lifecycle management;
@@ -321,6 +359,7 @@ The platform MUST expose inquiry and profile operations through secure server-si
 - administrator-only moderation capabilities for safety-related actions.
 
 ### P1 - Important
+
 - dashboards for clients and developers;
 - invalid submission handling and user-friendly error states;
 - public versus private data separation;
@@ -328,6 +367,7 @@ The platform MUST expose inquiry and profile operations through secure server-si
 - responsive user experience.
 
 ### P2 - Nice to Have / Future
+
 - automated notifications;
 - advanced recommendation matching;
 - richer moderation tooling;
