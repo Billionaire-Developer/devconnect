@@ -4,7 +4,7 @@
 
 ## Team Members
 
-- Cesar Franco Chavex
+- Cesar Franco Chavez
 - Lawani Covenant Jeremiah
 
 ## Project Overview
