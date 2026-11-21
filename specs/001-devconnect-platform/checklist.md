@@ -1,58 +1,48 @@
-# Specification Quality Checklist: DevConnect
+# MVP Documentation Checklist
 
-**Purpose**: Validate specification completeness and quality before planning.
-**Created**: 2026-11-08
-**Feature**: DevConnect — Developer & Client Network
+This checklist documents scope decisions. Items below are not implementation-complete unless separately verified.
 
-## Content Quality
+## Scope
 
-- [x] No implementation details leak into the specification.
-- [x] The scope is focused on user value and product goals.
-- [x] The specification is written for stakeholder review, not low-level implementation detail.
-- [x] All mandatory sections are completed and specific.
+- [ ] Registration, login, and logout support `CLIENT` and `DEVELOPER`.
+- [ ] DeveloperProfile CRUD is implemented.
+- [ ] Public directory and profile details are implemented.
+- [ ] ProjectInquiry CRUD and archival are implemented.
+- [ ] Recipient developers can accept or decline pending inquiries.
+- [ ] Client and developer dashboards show relevant inquiries.
+- [ ] Responsive loading, empty, success, and error states are implemented.
 
-## Role and Access Control
+## Data
 
-- [x] Users can register only as Developer or Client.
-- [x] Administrative privileges are defined as a secure, explicit process rather than self-service assignment.
-- [x] Access rules are explicit for clients, developers, and administrators.
-- [x] Privacy rules separate public profile information from private account data.
+- [ ] `UserAccount` is implemented.
+- [ ] `DeveloperProfile` is implemented.
+- [ ] `ProjectInquiry` is implemented.
+- [ ] Inquiry status is restricted to `PENDING`, `ACCEPTED`, and `DECLINED`.
+- [ ] Archival uses `archivedAt`.
+- [ ] Archived inquiries cannot be edited or receive status changes.
 
-## Inquiry and Lifecycle Rules
+## Security
 
-- [x] Clients can create inquiries directed to developers.
-- [x] Clients can view their own inquiries.
-- [x] Developers can view inquiries directed to them.
-- [x] Developers can accept or decline incoming inquiries.
-- [x] Only authorized participants can update a relevant inquiry.
-- [x] Completed inquiries are locked unless a formal override rule exists.
-- [x] Archiving preserves data and avoids permanent deletion.
+- [ ] Authentication and server-side authorization are verified.
+- [ ] The profile owner is the only account that can edit/remove the profile.
+- [ ] The client owner is the only account that can edit/archive the inquiry.
+- [ ] The recipient developer is the only account that can respond to it.
+- [ ] Public responses exclude password hashes and private account data.
 
-## Acceptance Criteria Coverage
+## Architecture
 
-- [x] Major user stories include testable acceptance criteria.
-- [x] Unauthorized access scenarios are covered.
-- [x] Invalid submissions are covered.
-- [x] Empty search results are covered.
-- [x] Database failure handling is covered.
-- [x] User flows are clear and testable end-to-end.
+- [ ] The Next.js application remains at the repository root.
+- [ ] The `/api/inquiries` Route Handler is database-backed.
+- [ ] A Client Component consumes `/api/inquiries`.
+- [ ] PostgreSQL, Prisma, and Auth.js are configured and verified.
+- [ ] The project does not include administration or moderation in the MVP.
+- [ ] The project does not include audit-history or inquiry-status-history entities.
 
-## Product Scope and Safety
+## Verification
 
-- [x] The feature remains within the intended DevConnect vision.
-- [x] Payments, escrow, bidding, and marketplace complexity remain out of scope.
-- [x] Administrator responsibilities are defined and constrained to the initial release requirements.
-- [x] Misuse handling and moderation remain focused and operationally minimal.
+- [ ] `npm run lint` has been run and results recorded.
+- [ ] `npm run build` has been run and results recorded.
+- [ ] `npm run format:check` has been run and results recorded.
+- [ ] Automated tests are configured and relevant flows are passing.
 
-## Final Validation
-
-- [x] Requirement logic is unambiguous and testable.
-- [x] Success criteria are measurable and product-oriented.
-- [x] Edge cases and error conditions are identified.
-- [x] Spec is ready for review and planning follow-up once approved.
-
-## Notes
-
-- No implementation work was started.
-- No planning phase was initiated.
-- This specification remains intentionally scoped to the first release and avoids expansion into non-essential marketplace features.
+No checklist item is marked complete because this documentation update does not prove implementation or test status.
