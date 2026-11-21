@@ -1,78 +1,77 @@
 # DevConnect
 
-**DevConnect** is a secure platform connecting independent developers with clients seeking technical services, making it easier to discover developer talent, manage project inquiries, and establish professional connections.
+DevConnect is a responsive web platform for connecting independent developers with clients seeking technical services.
 
 ## Team Members
 
-- Cesar Franco Chavex
+- Cesar Franco Chavez
 - Lawani Covenant Jeremiah
 
-## Project Overview
+## Approved MVP
 
-DevConnect provides a focused environment where:
+- Registration, login, and logout for `CLIENT` and `DEVELOPER` accounts.
+- Developer profile creation, reading, editing, and removal.
+- A public developer directory with skill filtering and profile details.
+- Client creation, reading, editing, and archival of their own pending inquiries.
+- Developer acceptance or decline of pending inquiries directed to them.
+- A dashboard for inquiries relevant to the signed-in user.
+- Responsive pages with validation, loading, empty, success, and error states.
 
-- **Clients** can discover developers and submit project inquiries.
-- **Developers** can create professional profiles and manage inquiries directed to them.
-- **Administrators** can perform basic moderation and platform management.
+Administration, moderation reports, audit history, payments, bidding, chat, notifications, and image uploads are outside this MVP.
 
-The platform emphasizes secure authentication, role-based access control, privacy, and a responsive user experience.
+## Technology State
 
-## Technology Stack
+### Installed
 
-- Next.js
+- Next.js App Router
 - React
 - TypeScript
 - Tailwind CSS
 - ESLint
 - Prettier
+- npm
+
+### Planned, not yet configured
+
+- PostgreSQL
+- Prisma
+- Auth.js
+
+Do not describe the planned integrations as working until they are implemented and verified. Keep the Next.js application at the repository root, not under `apps/web` or a monorepo.
+
+## Core Model
+
+- `UserAccount`
+- `DeveloperProfile`
+- `ProjectInquiry`
+
+Inquiry statuses are `PENDING`, `ACCEPTED`, and `DECLINED`. Archiving uses `archivedAt`, is soft deletion, and does not add an archived status. Archived inquiries are excluded from active lists and cannot be edited or receive status changes.
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js
-- npm
-
-### Installation
-
-Clone the repository:
+Prerequisites: Node.js and npm.
 
 ```bash
 git clone https://github.com/Billionaire-Developer/devconnect.git
 cd devconnect
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Start the development server:
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open `http://localhost:3000`.
+
+Database setup and authentication setup are not currently complete.
 
 ## Available Scripts
 
-| Command                | Description                         |
+| Command                | Purpose                             |
 | ---------------------- | ----------------------------------- |
 | `npm run dev`          | Starts the development server       |
 | `npm run build`        | Builds the application              |
-| `npm run start`        | Starts the production server        |
 | `npm run lint`         | Runs ESLint                         |
 | `npm run format`       | Formats project files with Prettier |
 | `npm run format:check` | Checks code formatting              |
 
-## Project Scope
-
-DevConnect focuses on developer discovery, professional profiles, and secure project inquiries.
-
-Payments, escrow services, and competitive bidding are outside the scope of this project.
-
 ## Repository
 
-[GitHub – DevConnect](https://github.com/Billionaire-Developer/devconnect)
+[GitHub - DevConnect](https://github.com/Billionaire-Developer/devconnect)
