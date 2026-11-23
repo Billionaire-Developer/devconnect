@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  CLIENT
+  DEVELOPER
+}
+
+enum Availability {
+  AVAILABLE
+  BUSY
+  UNAVAILABLE
+}
+
+enum InquiryStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+model UserAccount {
+  id                String            @id @default(uuid()) @db.Uuid
+  email             String            @unique
+  passwordHash      String
+  role              UserRole
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  developerProfile  DeveloperProfile?
+  sentInquiries     ProjectInquiry[]  @relation("ClientInquiries")
+  receivedInquiries ProjectInquiry[]  @relation("DeveloperInquiries")
+}
+
+model DeveloperProfile {
+  id                String       @id @default(uuid()) @db.Uuid
+  userId            String       @unique @db.Uuid
+  displayName       String
+  professionalTitle String
+  bio               String
+  skills            String[]
+  yearsOfExperience Int
+  availability      Availability
+  portfolioLinks    String[]
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  user              UserAccount  @relation(fields: [userId], references: [id], onDelete: Restrict)
+}
+
+model ProjectInquiry {
+  id                String        @id @default(uuid()) @db.Uuid
+  clientId          String        @db.Uuid
+  developerId       String        @db.Uuid
+  title             String
+  description       String
+  requiredSkills    String[]
+  budget            Decimal?
+  preferredTimeline String?
+  status            InquiryStatus @default(PENDING)
+  archivedAt        DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  client            UserAccount   @relation("ClientInquiries", fields: [clientId], references: [id], onDelete: Restrict)
+  developer         UserAccount   @relation("DeveloperInquiries", fields: [developerId], references: [id], onDelete: Restrict)
+}
